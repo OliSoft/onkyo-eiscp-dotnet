@@ -57,7 +57,10 @@ namespace Onkyo.Core.Service
             //}
             _waitforReceiveQuery = false;
             foreach (var sc in sendCommands)
-                Debug.WriteLine("SendCommands: " + sc);
+            {
+                Debug.WriteLine($"{sc}", "SendCommands");
+                //Debug.WriteIf(sc.Contains("MVL"), $"{sc}", "SendCommands");
+            }
             await Task.Delay(100);
 
             foreach (var receiver in Receivers)

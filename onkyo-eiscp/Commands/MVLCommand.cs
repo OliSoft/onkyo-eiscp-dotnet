@@ -154,7 +154,7 @@ namespace Eiscp.Core.Commands
         public string SetVolume(int volume)
         {
             var res = new Response($"{Key}{volume}", Value);
-            return $"{res.Key}{res.ToInt()}";
+            return $"{res.Key}{res.ToHex()}";
         }
     }
 }

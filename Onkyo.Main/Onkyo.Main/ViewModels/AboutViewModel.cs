@@ -29,9 +29,12 @@ namespace Onkyo.Main.ViewModels
                 else
                 if (cmd is MVLCommand mvlCmd && mvlCmd.IsCommand(resp))
                 {
-                    _volume = mvlCmd.Response.FromHex();
-                    OnPropertyChanged(nameof(Volume));
-                    Debug.WriteLine("Volume is at" + _volume);
+                    if (mvlCmd.Response.FromHex() != -1)
+                    {
+                        _volume = mvlCmd.Response.FromHex();
+                        OnPropertyChanged(nameof(Volume));
+                        Debug.WriteLine("Volume is at " + _volume);
+                    }
                 }
                 else
                 if (cmd is AMTCommand amtCmd && amtCmd.IsCommand(resp))
@@ -45,7 +48,7 @@ namespace Onkyo.Main.ViewModels
                 if (cmd is SLICommand sliCmd && sliCmd.IsCommand(resp))
                 {
                     var index = sliCmd.Response.ToInt();
-                    if(Title != sliCmd.Response.Description)
+                    if (Title != sliCmd.Response.Description)
                         Title = sliCmd.Response.Description;
                     Debug.WriteLine("Seleded input is " + index);
                 }

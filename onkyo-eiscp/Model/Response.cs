@@ -25,7 +25,7 @@ namespace Eiscp.Core.Model
             return -1;
         }
 
-        public string ToHex() => string.Format("{0:x}", ToInt()).ToUpper();
+        public string ToHex() => string.Format("{0:X2}", ToInt()).ToUpper();
 
         public int ToInt()
         { 
