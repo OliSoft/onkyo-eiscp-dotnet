@@ -52,7 +52,7 @@ namespace Onkyo.Main.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
+                Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental", "Shell_UWP_Experimental");
 
                 Xamarin.Forms.Forms.Init(e);
 

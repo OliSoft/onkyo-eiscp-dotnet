@@ -7,15 +7,15 @@ using Xamarin.Forms;
 
 namespace Onkyo.Main.ViewModels
 {
-    public class AboutViewModel : BaseViewModel
+    public class DetailsViewModel : BaseViewModel
     {
         private readonly PWRCommand pwr = new PWRCommand();
         private readonly MVLCommand mvl = new MVLCommand();
         private readonly AMTCommand amt = new AMTCommand();
 
-        public AboutViewModel() : this(null) { }
+        public DetailsViewModel() : this(null) { }
 
-        public AboutViewModel(string name = null)
+        public DetailsViewModel(string name = null)
         {
             MessagingCenter.Instance.Subscribe<BaseCommand, string>(this, "UPDATE_AVR_COMMANDS", (cmd, resp) =>
             {

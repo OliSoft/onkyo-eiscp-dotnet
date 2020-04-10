@@ -15,14 +15,14 @@
     </ContentPage.ToolbarItems>-->
 
 
-        <CollectionView 
+    <CollectionView 
             x:Name="ItemsListView"
             ItemsSource="{Binding Items}"
             SelectionMode="Single"
             SelectedItem="{Binding SelectedCommand}"
-            IsEnabled="{Binding IsEnabled}"
-            SelectionChanged="ItemsListView_SelectionChanged"
-            >
+            IsEnabled="{Binding IsEnabled}">
+        <!--SelectionChanged="ItemsListView_SelectionChanged"
+            >-->
             <!--<d:CollectionView.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>First Item</x:String>

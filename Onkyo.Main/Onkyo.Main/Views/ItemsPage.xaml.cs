@@ -11,36 +11,44 @@ namespace Onkyo.Main.Views
     [DesignTimeVisible(false)]
     public partial class ItemsPage : ContentPage
     {
-        private readonly ItemsViewModel _viewModel;
-        private SLICommand _command;
-
+        private static ItemsViewModel _viewModel;
+        //private BaseCommand _command;
         public ItemsPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new ItemsViewModel();
+            BindingContext = _viewModel = _viewModel ?? new ItemsViewModel();
+            CreateTappedGesture();
+        }
+
+        private void CreateTappedGesture()
+        {
             var tapRecognizer = new TapGestureRecognizer();
-            tapRecognizer.Tapped += async delegate 
-            {
-                //_viewModel.UnsubribeFromCommands();
-                await Navigation.PushAsync(new AboutPage(_command.Name));
-            };
+            tapRecognizer.Tapped += TapRecognizer_Tapped;
+            ItemsListView.GestureRecognizers.Clear();
             ItemsListView.GestureRecognizers.Add(tapRecognizer);
-        }       
+        }
+
+        private async void TapRecognizer_Tapped(object sender, System.EventArgs e) => await Shell.Current.GoToAsync($"//onkyocontroller//onkyotab/onkyodetails");
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
             if (_viewModel.Items.Count == 0)
                 _viewModel.LoadItemsCommand.Execute(null);
-
             _viewModel.SubscribeToCommands();
+            
         }
 
-        private void ItemsListView_SelectionChanged(object sender, SelectionChangedEventArgs args)
+        protected override void OnDisappearing()
         {
-            if (args.CurrentSelection.FirstOrDefault() is SLICommand item)
-                _command = item;
+            _viewModel.UnsubribeFromCommands();
+            base.OnDisappearing();
         }
+
+        //private void ItemsListView_SelectionChanged(object sender, SelectionChangedEventArgs args)
+        //{
+        //    if (args.CurrentSelection.FirstOrDefault() is SLICommand item)
+        //        _command = item;
+        //}
     }
 }

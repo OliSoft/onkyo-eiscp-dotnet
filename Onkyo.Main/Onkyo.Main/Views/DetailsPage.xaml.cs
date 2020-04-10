@@ -1,22 +1,20 @@
 ﻿using Onkyo.Main.ViewModels;
-using System;
 using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Onkyo.Main.Views
 {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
-    public partial class AboutPage : ContentPage
+    public partial class DetailsPage : ContentPage
     {
-        public AboutPage() : this(null) { }
+        public DetailsPage() : this(null) { }
 
-        public AboutPage(string name)
+        public DetailsPage(string name)
         {
             InitializeComponent();
-            BindingContext = new AboutViewModel(name);
+            BindingContext = new DetailsViewModel(name);
         }
     }
 }

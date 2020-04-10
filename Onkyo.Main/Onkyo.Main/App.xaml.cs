@@ -14,7 +14,9 @@ namespace Onkyo.Main
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new MainPage();
+            MainPage = new AppShell();
+
+            Onkyo.Core.Service.UpdateService.Get();
         }
 
         protected override void OnStart()

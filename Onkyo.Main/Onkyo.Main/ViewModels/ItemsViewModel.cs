@@ -41,6 +41,7 @@ namespace Onkyo.Main.ViewModels
         public void UnsubribeFromCommands()
         {
             MessagingCenter.Instance.Unsubscribe<BaseCommand, string>(this, "UPDATE_AVR_COMMANDS");
+            MessagingCenter.Instance.Unsubscribe<BaseCommand, string>(this, "UPDATE_AVR_COMMANDS");
         }
 
         public static readonly Func<BaseCommand, SLICommand, bool> GetSelectedCommand = (cmd, sli) =>
@@ -80,7 +81,7 @@ namespace Onkyo.Main.ViewModels
                     {
                         Items.Add(item);
                     }
-                    Onkyo.Core.Service.UpdateService.Get();
+                    
                 }
                 catch (Exception ex)
                 {
