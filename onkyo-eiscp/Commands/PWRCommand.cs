@@ -3,9 +3,18 @@ using System.Collections.Specialized;
 
 namespace Eiscp.Core.Commands
 {
+    /// <summary>
+    /// Power command
+    /// </summary>
     public class PWRCommand : OnOffCommand
     {
+        /// <summary>
+        /// Key
+        /// </summary>
         public override string Key => "PWR";
+        /// <summary>
+        /// Value
+        /// </summary>
         public override OrderedDictionary Value =>
             new OrderedDictionary(StructuralComparisons.StructuralEqualityComparer)
             {

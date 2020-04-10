@@ -1,16 +1,16 @@
-// Generated
-// by generate.exe
-// from eiscp-commands.yaml
-// at 2013-01-15 13:55:20
-
 using System.Collections;
 using System.Collections.Specialized;
 
 namespace Eiscp.Core.Commands
 {
+	/// <summary>
+	/// Eiscp Commands
+	/// </summary>
 	public static class EiscpCommands
 	{
-
+		/// <summary>
+		/// All commands
+		/// </summary>
 		public static readonly OrderedDictionary Commands = new OrderedDictionary(StructuralComparisons.StructuralEqualityComparer)
 		{
 			{

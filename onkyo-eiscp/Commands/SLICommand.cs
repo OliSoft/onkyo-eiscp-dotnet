@@ -5,14 +5,28 @@ using System.Linq;
 
 namespace Eiscp.Core.Commands
 {
+    /// <summary>
+    /// Input Selector Command 
+    /// </summary>
     public class SLICommand : UpDownCommand
     {
+        /// <summary>
+        /// Name
+        /// </summary>
         public string Name { get; }
+        /// <summary>
+        /// Test ???
+        /// </summary>
         public int Test { get; }
-
+        /// <summary>
+        /// New Input Selector Command
+        /// </summary>
         public SLICommand() : this(string.Empty)
         {}
-
+        /// <summary>
+        /// New Input Selector Command
+        /// </summary>
+        /// <param name="name"></param>
         public SLICommand(string name)
         {
             Name = name;
@@ -24,8 +38,13 @@ namespace Eiscp.Core.Commands
                 .Where(i => name.Equals(Utils.Nav(Value, "values", string.Format("{0:D2}", i), "name")));
             Test = e.FirstOrDefault();
         }
-
+        /// <summary>
+        /// Key
+        /// </summary>
         public override string Key => "SLI";
+        /// <summary>
+        /// Value
+        /// </summary>
         public override OrderedDictionary Value =>
             new OrderedDictionary(StructuralComparisons.StructuralEqualityComparer)
             {
@@ -320,7 +339,11 @@ namespace Eiscp.Core.Commands
                 }
             }
         };
-
+        /// <summary>
+        /// Select
+        /// </summary>
+        /// <param name="seletor">selector</param>
+        /// <returns></returns>
         public string Select(int seletor)=> GetCommandString($"{seletor}");
     }
 }

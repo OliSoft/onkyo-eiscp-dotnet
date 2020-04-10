@@ -53,11 +53,6 @@ namespace Onkyo.Main.ViewModels
                     Debug.WriteLine("Seleded input is " + index);
                 }
             });
-
-            //Title = name ?? "AVR";
-
-            OpenWebCommand = new Command(() => Onkyo.Core.Service.UpdateService.Get());
-            PowerCommand = new Command(() => Onkyo.Core.Service.UpdateService.Send(PowerOn ? pwr.Off : pwr.On));
         }
 
 
@@ -94,7 +89,7 @@ namespace Onkyo.Main.ViewModels
             set => SetProperty(ref _powerOn, value);
         }
 
-        public ICommand OpenWebCommand { get; }
-        public ICommand PowerCommand { get; }
+        //public ICommand OpenWebCommand => new Command(() => Onkyo.Core.Service.UpdateService.Get());
+        public ICommand PowerCommand => new Command(() => Onkyo.Core.Service.UpdateService.Send(PowerOn ? pwr.Off : pwr.On));
     }
 }

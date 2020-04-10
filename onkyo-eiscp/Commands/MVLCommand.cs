@@ -4,9 +4,18 @@ using System.Collections.Specialized;
 
 namespace Eiscp.Core.Commands
 {
+    /// <summary>
+    /// Master Volume Command
+    /// </summary>
     public class MVLCommand : UpDownCommand
     {
+        /// <summary>
+        /// Key
+        /// </summary>
         public override string Key => "MVL";
+        /// <summary>
+        /// Value
+        /// </summary>
         public override OrderedDictionary Value => 
             new OrderedDictionary(StructuralComparisons.StructuralEqualityComparer)
             {
@@ -148,9 +157,20 @@ namespace Eiscp.Core.Commands
                 }
             };
 
+        /// <summary>
+        /// Up 1
+        /// </summary>
         public string Up1 => GetCommandString("UP1");
+        /// <summary>
+        /// Down 1
+        /// </summary>
         public string Down1 => GetCommandString("DOWN1");
 
+        /// <summary>
+        /// Set Volume
+        /// </summary>
+        /// <param name="volume"></param>
+        /// <returns></returns>
         public string SetVolume(int volume)
         {
             var res = new Response($"{Key}{volume}", Value);

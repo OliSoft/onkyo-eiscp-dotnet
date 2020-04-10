@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Onkyo.Main.Views;
 using Eiscp.Core.Commands;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Onkyo.Main.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<BaseCommand> Items { get; set; }
-        public Command LoadItemsCommand { get; set; }
-
         public ItemsViewModel()
         {
             Title = "Commands";
             Items = new ObservableCollection<BaseCommand>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             MessagingCenter.Subscribe<NewItemPage, BaseCommand>(this, "AddItem", async (obj, item) =>
             {
@@ -28,6 +23,14 @@ namespace Onkyo.Main.ViewModels
             });
         }
 
+        public ObservableCollection<BaseCommand> Items { get; set; }
+
+        private bool _isEnabled;
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set => SetProperty(ref _isEnabled, value);
+        }
         public void SubscribeToCommands()
         {
             MessagingCenter.Instance.Subscribe<BaseCommand, string>(this, "UPDATE_AVR_COMMANDS", (cmd, resp) =>
@@ -35,7 +38,6 @@ namespace Onkyo.Main.ViewModels
                 AdaptCommands(cmd, resp);
             });
         }
-
         public void UnsubribeFromCommands()
         {
             MessagingCenter.Instance.Unsubscribe<BaseCommand, string>(this, "UPDATE_AVR_COMMANDS");
@@ -62,6 +64,34 @@ namespace Onkyo.Main.ViewModels
             }
         }
 
+        public Command LoadItemsCommand => new Command(
+            execute: async () =>
+            {
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+
+                try
+                {
+                    Items.Clear();
+                    var items = await DataStore.GetItemsAsync(true);
+                    foreach (var item in items)
+                    {
+                        Items.Add(item);
+                    }
+                    Onkyo.Core.Service.UpdateService.Get();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
+            });
+
         private BaseCommand _selectedCommand;
         public BaseCommand SelectedCommand
         {
@@ -77,41 +107,6 @@ namespace Onkyo.Main.ViewModels
                         Onkyo.Core.Service.UpdateService.Send(command);
                     }
                 }
-            }
-        }
-
-        private bool _isEnabled;
-        public bool IsEnabled
-        {
-            get { return _isEnabled; }
-            set { SetProperty(ref _isEnabled, value); }
-        }
-
-
-
-        async Task ExecuteLoadItemsCommand()
-        {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
-            {
-                Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
-                {
-                    Items.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
             }
         }
     }

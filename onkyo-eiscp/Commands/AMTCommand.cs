@@ -3,9 +3,18 @@ using System.Collections.Specialized;
 
 namespace Eiscp.Core.Commands
 {
+    /// <summary>
+    /// Audio Muting Command
+    /// </summary>
     public class AMTCommand : OnOffCommand
     {
+        /// <summary>
+        /// Key
+        /// </summary>
         public override string Key => "AMT";
+        /// <summary>
+        /// Value
+        /// </summary>
         public override OrderedDictionary Value =>
             new OrderedDictionary(StructuralComparisons.StructuralEqualityComparer)
             {
@@ -81,6 +90,9 @@ namespace Eiscp.Core.Commands
                 }
             };
 
+        /// <summary>
+        /// Toggle
+        /// </summary>
         public string Toggle => GetCommandString("TG");
     }
 }
